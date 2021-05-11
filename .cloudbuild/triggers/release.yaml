@@ -1,0 +1,8 @@
+name: ghcomment-release
+description: "Release pipeline"
+filename: .cloudbuild/configs/release.yaml
+github:
+  owner: einride
+  name: ghcomment
+  push:
+    tag: "^v.*"
