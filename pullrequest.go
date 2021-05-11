@@ -13,7 +13,6 @@ type Github struct {
 }
 
 func (g *Github) CommentPR(ctx context.Context, prnumber int, owner, name, body, signature string) error {
-
 	body = body + "\n <sub>Sign: " + signature + "</sub>"
 
 	type Comment struct {
@@ -66,9 +65,14 @@ LOOP:
 	}
 
 	if comment == nil {
-		g.addComment(ctx, prComments.Repository.PullRequest.ID, body)
+		if err := g.addComment(ctx, prComments.Repository.PullRequest.ID, body); err != nil {
+			return fmt.Errorf("unable to generate new comment on PR: %v", err)
+		}
+		return nil
 	}
-	g.updateComment(ctx, body, comment.ID)
+	if err := g.updateComment(ctx, body, comment.ID); err != nil {
+		return fmt.Errorf("unable to update comment on PR: %v", err)
+	}
 
 	return nil
 }
