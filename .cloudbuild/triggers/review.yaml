@@ -1,0 +1,8 @@
+name: ghcomment-review
+description: "Review pipeline"
+filename: .cloudbuild/configs/review.yaml
+github:
+  owner: einride
+  name: ghcomment
+  push:
+    branch: ".*"
