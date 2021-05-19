@@ -24,6 +24,10 @@ func main() {
 
 	flag.Parse()
 
+	if *ghToken == "" {
+		*ghToken = os.Getenv("GITHUB_TOKEN")
+	}
+
 	if *repo == "" {
 		path, err := retrieveLocalGitRepo()
 		if err != nil {
