@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-
 	comment := flag.String("comment", "", "A PR Comment")
 	ghToken := flag.String("token", "", "A github token")
 	repo := flag.String("repo", "", "A github repository. In the format einride/<repository>. If empty the local git repo will be used")
@@ -65,7 +64,7 @@ func parseGitPath(path string) (owner string, name string, _ error) {
 	if len(parts) != 2 {
 		return "", "", fmt.Errorf("Invalid repository format %s", path)
 	}
-	return parts[0], strings.TrimSuffix(parts[1], ".git"), nil
+	return parts[0], parts[1], nil
 }
 
 func retrieveLocalGitRepo() (string, error) {
@@ -96,5 +95,6 @@ func retrieveLocalGitRepo() (string, error) {
 	if endpoint.Host != "github.com" {
 		return "", fmt.Errorf("not a github.com repository")
 	}
-	return endpoint.Path, nil
+	// Github path can start with a / and end in .git so we remove those
+	return strings.TrimPrefix("/", strings.TrimSuffix(endpoint.Path, ".git")), nil
 }
