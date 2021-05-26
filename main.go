@@ -96,5 +96,5 @@ func retrieveLocalGitRepo() (string, error) {
 		return "", fmt.Errorf("not a github.com repository")
 	}
 	// Github path can start with a / and end in .git so we remove those
-	return strings.TrimPrefix("/", strings.TrimSuffix(endpoint.Path, ".git")), nil
+	return strings.TrimPrefix(strings.TrimSuffix(endpoint.Path, ".git"), "/"), nil
 }
