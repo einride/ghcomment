@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"crypto/sha1"
+	"crypto/sha256"
 	"flag"
 	"fmt"
 	"os"
@@ -17,7 +17,11 @@ import (
 func main() {
 	comment := flag.String("comment", "", "A PR Comment")
 	ghToken := flag.String("token", "", "A github token")
-	repo := flag.String("repo", "", "A github repository. In the format einride/<repository>. If empty the local git repo will be used")
+	repo := flag.String(
+		"repo",
+		"",
+		"A github repository. In the format einride/<repository>. If empty the local git repo will be used",
+	)
 	pr := flag.Int("pr", 0, "A Pull Request number")
 	signKey := flag.String("signkey", "", "A key used to create the signature")
 
@@ -39,7 +43,7 @@ func main() {
 		panic(err)
 	}
 
-	signature := sha1.New()
+	signature := sha256.New()
 	_, err = signature.Write([]byte(*signKey))
 	if err != nil {
 		panic(err)
@@ -53,16 +57,23 @@ func main() {
 	client := githubv4.NewClient(httpClient)
 
 	gh := Github{client: client}
-	if err := gh.CommentPR(context.Background(), *pr, owner, name, *comment, fmt.Sprintf("%x", signature.Sum(nil))); err != nil {
+	if err := gh.CommentPR(
+		context.Background(),
+		*pr,
+		owner,
+		name,
+		*comment,
+		fmt.Sprintf("%x", signature.Sum(nil)),
+	); err != nil {
 		panic(err)
 	}
 }
 
-func parseGitPath(path string) (owner string, name string, _ error) {
+func parseGitPath(path string) (owner, name string, _ error) {
 	parts := strings.Split(path, "/")
 
 	if len(parts) != 2 {
-		return "", "", fmt.Errorf("Invalid repository format %s", path)
+		return "", "", fmt.Errorf("invalid repository format %s", path)
 	}
 	return parts[0], parts[1], nil
 }

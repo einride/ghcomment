@@ -48,7 +48,7 @@ LOOP:
 	for {
 		err := g.client.Query(ctx, &prComments, variables)
 		if err != nil {
-			return fmt.Errorf("Unable to query PR: %v", err)
+			return fmt.Errorf("unable to query PR: %v", err)
 		}
 		for _, c := range prComments.Repository.PullRequest.Comments.Nodes {
 			c := c
@@ -95,7 +95,7 @@ func (g *Github) updateComment(ctx context.Context, body string, commentID githu
 
 	err := g.client.Mutate(ctx, &updateIssueComment, updateIssueCommentInput, nil)
 	if err != nil {
-		return fmt.Errorf("Unable to update comment in PR: %v", err)
+		return fmt.Errorf("unable to update comment in PR: %v", err)
 	}
 	return nil
 }
@@ -118,7 +118,7 @@ func (g *Github) addComment(ctx context.Context, prID githubv4.ID, body string) 
 
 	err := g.client.Mutate(ctx, &addComment, addCommentInput, nil)
 	if err != nil {
-		return fmt.Errorf("Unable to comment in PR: %v", err)
+		return fmt.Errorf("unable to comment in PR: %v", err)
 	}
 	return nil
 }
