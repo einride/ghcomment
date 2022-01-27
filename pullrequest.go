@@ -41,8 +41,6 @@ func (g *Github) CommentPR(ctx context.Context, prnumber int, owner, name, body,
 		"prnumber":       githubv4.Int(prnumber),
 		"commentsCursor": (*githubv4.String)(nil),
 	}
-
-	var allComments []Comment
 	var comment *Comment
 LOOP:
 	for {
@@ -57,7 +55,6 @@ LOOP:
 				break LOOP
 			}
 		}
-		allComments = append(allComments, prComments.Repository.PullRequest.Comments.Nodes...)
 		if !prComments.Repository.PullRequest.Comments.PageInfo.HasNextPage {
 			break
 		}
