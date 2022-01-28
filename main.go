@@ -16,12 +16,8 @@ import (
 
 func main() {
 	comment := flag.String("comment", "", "A PR Comment")
-	ghToken := flag.String("token", "", "A github token")
-	repo := flag.String(
-		"repo",
-		"",
-		"A github repository. In the format einride/<repository>. If empty the local git repo will be used",
-	)
+	ghToken := flag.String("token", "", "A GitHub token")
+	repo := flag.String("repo", "", "A GitHub repository on the format <org>/<repo>, or the local git repo if empty")
 	pr := flag.Int("pr", 0, "A Pull Request number")
 	signKey := flag.String("signkey", "", "A key used to create the signature")
 
