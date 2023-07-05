@@ -1,5 +1,5 @@
 module sage
 
-go 1.17
+go 1.20
 
 require go.einride.tech/sage v0.225.0
