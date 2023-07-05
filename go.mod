@@ -1,6 +1,6 @@
 module github.com/einride/ghcomment
 
-go 1.17
+go 1.20
 
 require (
 	github.com/go-git/go-git/v5 v5.7.0
