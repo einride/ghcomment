@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ghcomment
+  title: Github Commenter
+  annotations:
+    backstage.io/techdocs-ref: dir:..
+spec:
+  type: go-library
+  system: github
+  lifecycle: production
+  owner: platform-engineering
