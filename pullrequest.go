@@ -36,8 +36,9 @@ func (g *Github) CommentPR(ctx context.Context, prnumber int, owner, name, body,
 	}
 
 	variables := map[string]interface{}{
-		"owner":          githubv4.String(owner),
-		"name":           githubv4.String(name),
+		"owner": githubv4.String(owner),
+		"name":  githubv4.String(name),
+		//nolint: gosec
 		"prnumber":       githubv4.Int(prnumber),
 		"commentsCursor": (*githubv4.String)(nil),
 	}
@@ -49,7 +50,6 @@ LOOP:
 			return fmt.Errorf("unable to query PR: %v", err)
 		}
 		for _, c := range prComments.Repository.PullRequest.Comments.Nodes {
-			c := c
 			if strings.Contains(c.Body, signature) {
 				comment = &c
 				break LOOP
