@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/shurcooL/githubv4 v0.0.0-20201206200315-234843c633fa
-	golang.org/x/oauth2 v0.22.0
+	golang.org/x/oauth2 v0.23.0
 )
 
 require (
