@@ -30,20 +30,26 @@ func main() {
 	if *repo == "" {
 		path, err := retrieveLocalGitRepo()
 		if err != nil {
+			fmt.Println("1")
 			panic(fmt.Errorf("failed to parse local git repository: %v", err))
 		}
+		fmt.Println("2")
 		*repo = path
 	}
 	owner, name, err := parseGitPath(*repo)
 	if err != nil {
+		fmt.Println("3")
 		panic(err)
 	}
+	fmt.Println("4")
 
 	signature := sha256.New()
 	_, err = signature.Write([]byte(*signKey))
 	if err != nil {
+		fmt.Println("5")
 		panic(err)
 	}
+	fmt.Println("6")
 
 	token := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: *ghToken},
@@ -61,8 +67,10 @@ func main() {
 		*comment,
 		fmt.Sprintf("%x", signature.Sum(nil)),
 	); err != nil {
+		fmt.Println("7")
 		panic(err)
 	}
+	fmt.Println("8")
 }
 
 func parseGitPath(path string) (owner, name string, _ error) {
