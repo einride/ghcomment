@@ -3,7 +3,7 @@ module github.com/einride/ghcomment
 go 1.25.5
 
 require (
-	github.com/go-git/go-git/v5 v5.16.2
+	github.com/go-git/go-git/v5 v5.16.5
 	github.com/shurcooL/githubv4 v0.0.0-20201206200315-234843c633fa
 	golang.org/x/oauth2 v0.30.0
 )
