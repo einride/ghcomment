@@ -17,7 +17,7 @@ jobs:
 
       - name: Release
         id: release
-        uses: go-semantic-release/action@v1.21.0
+        uses: go-semantic-release/action@v1.24.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           allow-initial-development-versions: true
